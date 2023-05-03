@@ -2,7 +2,7 @@ const express = require("express");
 const Joi = require("joi");
 const contacts = require("../../models/contacts");
 
-const addSchema = Joi.object({
+const contactSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:contactId", async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const id = req.params.contactId;
     const oneContact = await contacts.getContactById(id);
     if (!oneContact) {
       const error = new Error("Not found");
@@ -37,7 +37,7 @@ router.get("/:contactId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { error } = addSchema.validate(req.body);
+    const { error } = contactSchema.validate(req.body);
     if (error) {
       const error = new Error("missing required name field");
       error.status = 400;
@@ -53,7 +53,7 @@ router.post("/", async (req, res, next) => {
 
 router.delete("/:contactId", async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const id = req.params.contactId;
     const deletedContact = await contacts.removeContact(id);
     if (!deletedContact) {
       const error = new Error("Not found");
@@ -69,13 +69,13 @@ router.delete("/:contactId", async (req, res, next) => {
 
 router.put("/:contactId", async (req, res, next) => {
   try {
-    const { error } = addSchema.validate(req.body);
+    const { error } = contactSchema.validate(req.body);
     if (error) {
       const error = new Error("missing fields");
       error.status = 400;
       throw error;
     }
-    const { id } = req.params;
+    const id = req.params.contactId;
     const updatedContact = await contacts.updateContact(id, req.body);
     if (!updatedContact) {
       const error = new Error("Not found");
