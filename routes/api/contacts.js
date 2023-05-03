@@ -1,6 +1,7 @@
 const express = require("express");
 const Joi = require("joi");
-const contacts = require("../../models");
+const { contacts } = require("../../models");
+const { HttpError } = require("../../helpers");
 
 const contactSchema = Joi.object({
   name: Joi.string().required(),
@@ -15,6 +16,7 @@ router.get("/", async (req, res, next) => {
     const allContacts = await contacts.listContacts();
     res.json(allContacts);
   } catch (error) {
+    next(error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -24,14 +26,11 @@ router.get("/:contactId", async (req, res, next) => {
     const id = req.params.contactId;
     const oneContact = await contacts.getContactById(id);
     if (!oneContact) {
-      const error = new Error("Not found");
-      error.status = 404;
-      throw error;
+      throw HttpError(404, "Not found");
     }
     res.json(oneContact);
   } catch (error) {
-    const { status = 500, message = "Server error" } = error;
-    res.status(status).json({ message });
+    next(error);
   }
 });
 
@@ -39,15 +38,12 @@ router.post("/", async (req, res, next) => {
   try {
     const { error } = contactSchema.validate(req.body);
     if (error) {
-      const error = new Error("missing required name field");
-      error.status = 400;
-      throw error;
+      throw HttpError(400, "missing required name field");
     }
     const newContact = await contacts.addContact(req.body);
     res.status(201).json(newContact);
   } catch (error) {
-    const { status = 500, message = "Server error" } = error;
-    res.status(status).json({ message });
+    next(error);
   }
 });
 
@@ -56,14 +52,11 @@ router.delete("/:contactId", async (req, res, next) => {
     const id = req.params.contactId;
     const deletedContact = await contacts.removeContact(id);
     if (!deletedContact) {
-      const error = new Error("Not found");
-      error.status = 404;
-      throw error;
+      throw HttpError(404, "Not found");
     }
     res.json({ message: "contact deleted" });
   } catch (error) {
-    const { status = 500, message = "Server error" } = error;
-    res.status(status).json({ message });
+    next(error);
   }
 });
 
@@ -71,21 +64,16 @@ router.put("/:contactId", async (req, res, next) => {
   try {
     const { error } = contactSchema.validate(req.body);
     if (error) {
-      const error = new Error("missing fields");
-      error.status = 400;
-      throw error;
+      throw HttpError(400, "missing fields");
     }
     const id = req.params.contactId;
     const updatedContact = await contacts.updateContact(id, req.body);
     if (!updatedContact) {
-      const error = new Error("Not found");
-      error.status = 404;
-      throw error;
+      throw HttpError(404, "Not found");
     }
     res.json(updatedContact);
   } catch (error) {
-    const { status = 500, message = "Server error" } = error;
-    res.status(status).json({ message });
+    next(error);
   }
 });
 

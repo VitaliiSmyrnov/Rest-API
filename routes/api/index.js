@@ -1,3 +1,3 @@
-const router = require("./contacts.js");
+const contactsRouter = require("./contacts.js");
 
-module.exports = router;
+module.exports = { contactsRouter };
