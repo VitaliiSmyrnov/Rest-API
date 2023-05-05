@@ -12,8 +12,13 @@ router.get("/:contactId", isValidId, ctrlContacts.getContact);
 
 router.post("/", validateBody(contactSchema), ctrlContacts.postContact);
 
-router.delete("/:contactId", ctrlContacts.remContact);
+router.delete("/:contactId", isValidId, ctrlContacts.remContact);
 
-router.put("/:contactId", validateBody(contactSchema), ctrlContacts.updContact);
+router.put(
+  "/:contactId",
+  isValidId,
+  validateBody(contactSchema),
+  ctrlContacts.updContact
+);
 
 module.exports = router;
