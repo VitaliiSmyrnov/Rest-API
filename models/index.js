@@ -1,3 +1,6 @@
-const contacts = require("./contacts.js");
+const { Contact, schemas } = require("./contact.js");
 
-module.exports = { contacts };
+module.exports = {
+  Contact,
+  schemas,
+};
