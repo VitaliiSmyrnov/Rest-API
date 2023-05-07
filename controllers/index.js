@@ -1,3 +1,3 @@
-const ctrlContacts = require("./contacts.js");
+const ctrlContacts = require("./contacts");
 
 module.exports = { ctrlContacts };
