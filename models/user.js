@@ -14,9 +14,9 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      match: emailRegexp,
-      required: [true, "Email is required"],
+      match: [emailRegexp, "user email is not valid"],
       unique: true,
+      required: [true, "Email is required"],
     },
     subscription: {
       type: String,
