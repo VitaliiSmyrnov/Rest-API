@@ -11,7 +11,7 @@ const updateSubscription = async (req, res) => {
     throw HttpError(404, "Not found");
   }
 
-  const { email, subscription } = req.user;
+  const { email, subscription } = updatedSubscription;
 
   res.json({
     code: 200,
