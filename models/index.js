@@ -3,13 +3,19 @@ const {
   addContactSchema,
   updStatusContactSchema,
 } = require("./contact.js");
-const { User, registerSchema, loginSchema } = require("./user.js");
+const {
+  User,
+  registerSchema,
+  loginSchema,
+  updSubscriptionSchema,
+} = require("./user.js");
 
 const schemas = {
   addContactSchema,
   updStatusContactSchema,
   registerSchema,
   loginSchema,
+  updSubscriptionSchema,
 };
 
 module.exports = {
