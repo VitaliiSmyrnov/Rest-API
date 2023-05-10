@@ -11,17 +11,15 @@ const updateUser = async (req, res) => {
     throw HttpError(404, "Not found");
   }
 
-  res.json({ code: 200, user: updatedSubscription });
+  const { email, subscription } = req.user;
 
-  // const { email, subscription } = req.user;
-
-  // res.json({
-  //   code: 200,
-  //   user: {
-  //     email,
-  //     subscription,
-  //   },
-  // });
+  res.json({
+    code: 200,
+    user: {
+      email,
+      subscription,
+    },
+  });
 };
 
 module.exports = ctrlWrapper(updateUser);
