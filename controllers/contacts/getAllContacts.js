@@ -15,7 +15,8 @@ const getAllContacts = async (req, res) => {
     skip,
     limit,
   });
-  res.json(allContacts);
+  
+  res.json({ code: 200, data: allContacts });
 };
 
 module.exports = ctrlWrapper(getAllContacts);

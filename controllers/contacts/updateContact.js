@@ -6,10 +6,12 @@ const updateContact = async (req, res) => {
   const updatedContact = await Contact.findByIdAndUpdate(id, req.body, {
     new: true,
   });
+
   if (!updatedContact) {
     throw HttpError(404, "Not found");
   }
-  res.json(updatedContact);
+  
+  res.json({ code: 200, data: updatedContact });
 };
 
 module.exports = ctrlWrapper(updateContact);
