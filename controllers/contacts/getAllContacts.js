@@ -11,11 +11,11 @@ const getAllContacts = async (req, res) => {
     query.favorite = true;
   }
 
-  const allContacts = await Contact.find(query, "-createAt -updateAt", {
+  const allContacts = await Contact.find(query, "-createdAt -updatedAt", {
     skip,
     limit,
   });
-  
+
   res.json({ code: 200, data: allContacts });
 };
 
