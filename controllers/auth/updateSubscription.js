@@ -1,7 +1,7 @@
 const { User } = require("../../models");
 const { HttpError, ctrlWrapper } = require("../../helpers");
 
-const updateUser = async (req, res) => {
+const updateSubscription = async (req, res) => {
   const id = req.user._id;
   const updatedSubscription = await User.findByIdAndUpdate(id, req.body, {
     new: true,
@@ -22,4 +22,4 @@ const updateUser = async (req, res) => {
   });
 };
 
-module.exports = ctrlWrapper(updateUser);
+module.exports = ctrlWrapper(updateSubscription);
