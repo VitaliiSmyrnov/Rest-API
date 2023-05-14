@@ -6,6 +6,7 @@ const {
 const {
   User,
   registerSchema,
+  emailSchema,
   loginSchema,
   updSubscriptionSchema,
 } = require("./user.js");
@@ -14,6 +15,7 @@ const schemas = {
   addContactSchema,
   updStatusContactSchema,
   registerSchema,
+  emailSchema,
   loginSchema,
   updSubscriptionSchema,
 };
