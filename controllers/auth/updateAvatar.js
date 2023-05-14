@@ -11,6 +11,9 @@ const avatarsDir = path.join(__dirname, "..", "..", "public", "avatars");
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
+  if (!path || !originalname) {
+    throw HttpError(400, "File is require!");
+  }
   const filename = `${_id}_${originalname}`;
 
   try {
