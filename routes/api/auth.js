@@ -6,12 +6,22 @@ const { ctrlAuth } = require("../../controllers");
 
 const router = express.Router();
 
+// register
 router.post(
   "/users/register",
   validateBody(schemas.registerSchema),
   ctrlAuth.register
 );
 
+router.get("/users/verify/:verificationToken", ctrlAuth.verifyEmail);
+
+router.post(
+  "/users/verify",
+  validateBody(schemas.emailSchema),
+  ctrlAuth.resendVerifyEmail
+);
+
+// login
 router.post("/users/login", validateBody(schemas.loginSchema), ctrlAuth.login);
 
 router.get("/users/current", authenticate, ctrlAuth.getCurrent);

@@ -9,6 +9,7 @@
     "lint:fix": "eslint --fix **/*.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
     "cors": "2.8.5",
@@ -32,8 +33,5 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "5.2.0",
     "nodemon": "2.0.15"
-  },
-  "engines": {
-    "node": ">=14 <15"
   }
 }
